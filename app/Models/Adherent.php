@@ -7,9 +7,9 @@ class Adherent extends Model
 {
      
     //nom de la table dans la base de données    
-    protected $table='Adherent';
+    protected $table='ADHERENT';
     //nom de la clé primaire si différente de id
-    protected $primaryKey='adh_id';
+    protected $primaryKey='ADH_ID';
     //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
     //si la clé n'est pas en auto incrément
@@ -21,30 +21,30 @@ class Adherent extends Model
 
     //liste des champs modifiables
     protected $fillable=[
-        'adh_id',
-        'clu_id',
-        'dis_id',
-        'adh_nom',
-        'adh_prenom',
-        'adh_ddn',
-        'adh_adresse',
-        'adh_hash_pwd',
-        'adh_email',
-        'adh_role',
-        'clu_id',
-        'dis_id'
+        'ADH_ID',
+        'CLU_ID',
+        'DIS_ID',
+        'ADH_NOM',
+        'ADH_PRENOM',
+        'ADH_DDN',
+        'ADH_ADRESSE',
+        'ADH_HASH_PWD',
+        'ADH_EMAIL',
+        'ADH_ROLE',
+        'CLU_ID',
+        'DIS_ID'
     ];
 
     function club(){
-        return $this->belongsTo(Club::class,'clu_id','clu_id');
+        return $this->belongsTo(Club::class,'CLU_ID','CLU_ID');
     }
 
     function discipline(){
-        return $this->belongsTo(Discipline::class,'dis_id','dis_id');
+        return $this->belongsTo(Discipline::class,'DIS_ID','DIS_ID');
     }
 
     function inscription(){
-        return $this->hasMany(Inscription::class,'adh_id','adh_id');
+        return $this->hasMany(Inscription::class,'ADH_ID','ADH_ID');
     }
 }
   
