@@ -28,6 +28,9 @@ class Adherent extends Model
         'adh_prenom',
         'adh_ddn',
         'adh_adresse',
+        'adh_hash_pwd',
+        'adh_email',
+        'adh_role',
         'clu_id',
         'dis_id'
     ];
