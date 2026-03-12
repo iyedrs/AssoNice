@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Discipline;
 use Illuminate\Http\Request;
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
 
 class DisciplineController extends Controller
 {
+    #[Get('/disciplines/create')]
     public function create()
     {
         return view('disciplines.create');
     }
 
+    #[Post('/disciplines')]
     public function store(Request $request)
     {
         $discipline = new Discipline();
@@ -22,12 +26,14 @@ class DisciplineController extends Controller
         return redirect('/disciplines')->with('success', 'Discipline ajoutée !');
     }
 
+    #[Get('/disciplines/{id}/edit')]
     public function edit($id)
     {
         $discipline = Discipline::find($id);
         return view('disciplines.edit', compact('discipline'));
     }
 
+    #[Post('/disciplines/{id}/update')]
     public function update(Request $request, $id)
     {
         $discipline = Discipline::find($id);
@@ -37,6 +43,7 @@ class DisciplineController extends Controller
         return redirect('/disciplines')->with('success', 'Discipline modifiée !');
     }
 
+    #[Get('/disciplines/{id}/delete')]
     public function delete($id)
     {
         $discipline = Discipline::find($id);

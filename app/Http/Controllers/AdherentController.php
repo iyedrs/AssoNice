@@ -7,9 +7,12 @@ use App\Models\Club;
 use App\Models\Discipline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
 
 class AdherentController extends Controller
 {
+    #[Get('/inscription')]
     public function inscriptionForm()
     {
         $clubs = Club::all();
@@ -17,6 +20,7 @@ class AdherentController extends Controller
         return view('adherents.inscription', compact('clubs', 'disciplines'));
     }
 
+    #[Post('/inscription')]
     public function inscription(Request $request)
     {
         $request->validate([
@@ -47,11 +51,13 @@ class AdherentController extends Controller
         return redirect('/connexion')->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
     }
 
+    #[Get('/connexion')]
     public function connexionForm()
     {
         return view('adherents.connexion');
     }
 
+    #[Post('/connexion')]
     public function connexion(Request $request)
     {
         $request->validate([
@@ -69,6 +75,7 @@ class AdherentController extends Controller
         return back()->withErrors(['ADH_EMAIL' => 'Email ou mot de passe incorrect.']);
     }
 
+    #[Get('/deconnexion')]
     public function deconnexion()
     {
         session()->forget('adherent');
