@@ -10,3 +10,5 @@ Route::get('/', function () {
 // Toutes les autres routes sont gérées par les attributs Spatie
 // directement dans les controllers (ClubController, AdherentController,
 // CompetitionController, DisciplineController)
+
+// composer require spatie/laravel-route-attributes
