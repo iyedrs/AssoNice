@@ -11,4 +11,4 @@ Route::get('/', function () {
 // directement dans les controllers (ClubController, AdherentController,
 // CompetitionController, DisciplineController)
 
-// composer require spatie/laravel-route-attributes
+// composer install
