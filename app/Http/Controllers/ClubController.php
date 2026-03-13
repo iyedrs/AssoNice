@@ -55,7 +55,7 @@ class ClubController extends Controller
     #[Get('/{id}/edit')]
     public function edit($id)
     {
-        $club = Club::findOrFail($id);
+        $club = Club::with('disciplines')->findOrFail($id);
         $disciplines = Discipline::all();
         return view('club.form', compact('club', 'disciplines'));
     }
