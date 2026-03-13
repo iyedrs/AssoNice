@@ -5,20 +5,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Discipline extends Model
 {
-     
-    //nom de la table dans la base de données si   
-    //différente de ouvrages
     protected $table='DISCIPLINE';
-    //nom de la clé primaire si différente de id
     protected $primaryKey='DIS_ID';
-    //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
-    //si la clé n'est pas en auto incrément
     public $incrementing = false;
-    //si la clé n'est pas de type integer
     protected $keyType= 'string';
     
-    //liste des champs modifiables
     protected $fillable=[
         'DIS_ID',
         'DIS_NOM'
