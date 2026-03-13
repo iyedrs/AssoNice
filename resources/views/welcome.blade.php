@@ -9,5 +9,6 @@
     <p>Bienvenue sur la plateforme de gestion des clubs</p>
     <a href="/clubs" class="btn btn-primary">Voir les Clubs</a>
     <a href="/disciplines" class="btn btn-primary">Voir les Disciplines</a>
+    <a href="/competitions" class="btn btn-primary">Voir les Compétitions</a>
 </body>
 </html>
