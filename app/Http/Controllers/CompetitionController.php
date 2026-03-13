@@ -15,11 +15,11 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 class CompetitionController extends Controller
 {
     // Afficher la liste de toutes les compétitions
-    #[Get('/', name: 'competitions.index')]
+    #[Get('/', name: 'competitions.list')]
     public function index()
     {
         $competitions = Competition::all();
-        return view('competitions.index', compact('competitions'));
+        return view('competitions.list', compact('competitions'));
     }
 
     // Afficher une compétition en particulier
