@@ -24,26 +24,24 @@ class AdherentController extends Controller
     public function inscription(Request $request)
     {
         $request->validate([
-            'ADH_ID' => 'required|string|unique:ADHERENT,ADH_ID',
             'ADH_NOM' => 'required|string',
             'ADH_PRENOM' => 'required|string',
             'ADH_EMAIL' => 'required|email|unique:ADHERENT,ADH_EMAIL',
             'ADH_DDN' => 'required|date',
             'ADH_ADRESSE' => 'required|string',
             'ADH_HASH_PWD' => 'required|string|min:6',
-            'CLU_ID' => 'required|string',
-            'DIS_ID' => 'required|string',
+            'CLU_ID' => 'required|integer',
+            'DIS_ID' => 'required|integer',
         ]);
 
         Adherent::create([
-            'ADH_ID' => $request->ADH_ID,
             'ADH_NOM' => $request->ADH_NOM,
             'ADH_PRENOM' => $request->ADH_PRENOM,
             'ADH_DDN' => $request->ADH_DDN,
             'ADH_ADRESSE' => $request->ADH_ADRESSE,
             'ADH_HASH_PWD' => Hash::make($request->ADH_HASH_PWD),
             'ADH_EMAIL' => $request->ADH_EMAIL,
-            'ADH_ROLE' => 'adherent',
+            'ADH_ROLE' => 0,
             'CLU_ID' => $request->CLU_ID,
             'DIS_ID' => $request->DIS_ID,
         ]);

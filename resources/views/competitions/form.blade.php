@@ -36,14 +36,6 @@
                     @endif
 
                     <div class="mb-3">
-                        <label for="COM_ID" class="form-label">ID de la compétition</label>
-                        @if(isset($competition))
-                            <input type="text" class="form-control" id="COM_ID" value="{{ $competition->COM_ID }}" disabled>
-                        @else
-                            <input type="text" class="form-control" id="COM_ID" name="COM_ID" value="{{ old('COM_ID') }}" required>
-                        @endif
-                    </div>
-                    <div class="mb-3">
                         <label for="COM_NOM" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="COM_NOM" name="COM_NOM" value="{{ old('COM_NOM', $competition->COM_NOM ?? '') }}" required>
                     </div>

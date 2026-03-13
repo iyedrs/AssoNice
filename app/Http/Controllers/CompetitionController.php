@@ -44,7 +44,6 @@ class CompetitionController extends Controller
     public function store(Request $request)
     {
         Competition::create([
-            'COM_ID' => $request->COM_ID,
             'COM_NOM' => $request->COM_NOM,
             'COM_DATE' => $request->COM_DATE,
             'CLU_ID' => $request->CLU_ID,

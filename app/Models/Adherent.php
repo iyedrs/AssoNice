@@ -10,12 +10,8 @@ class Adherent extends Model
     protected $table='ADHERENT';
     //nom de la clé primaire si différente de id
     protected $primaryKey='ADH_ID';
-    //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
     
-    
-
-    //liste des champs modifiables
     protected $fillable=[
         'CLU_ID',
         'DIS_ID',

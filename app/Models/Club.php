@@ -11,24 +11,19 @@ class Club extends Model
     protected $table='CLUB';
     //nom de la clé primaire si différente de id
     protected $primaryKey='CLU_ID';
-    //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
     
-    
-
-    //liste des champs modifiables
     protected $fillable=[
         'CLU_NOM',
         'CLU_ADRESSEVILLE',
         'CLU_ADRESSERUE',
         'CLU_ADRESSECP',
         'CLU_MAIL',
-        'CLU_TELFIXE',
-        'DIS_ID'
+        'CLU_TELFIXE'
     ];
 
-    function discipline(){
-        return $this->belongsTo(Discipline::class,'DIS_ID','DIS_ID');
+    function disciplines(){
+        return $this->belongsToMany(Discipline::class,'CLUB_DISCIPLINE','CLUB_ID','DISCIPLINE_ID');
     }
 
     function adherent(){

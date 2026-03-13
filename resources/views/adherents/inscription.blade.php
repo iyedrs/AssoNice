@@ -20,10 +20,6 @@
 
         <form action="/inscription" method="POST">
             @csrf
-            <div class="mb-3">
-                <label class="form-label">ID Adhérent</label>
-                <input type="text" name="ADH_ID" class="form-control" value="{{ old('ADH_ID') }}" required>
-            </div>
             <div class="row">
                 <div class="col mb-3">
                     <label class="form-label">Nom</label>

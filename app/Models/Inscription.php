@@ -11,10 +11,8 @@ class Inscription extends Model
     protected $table='INSCRIPTION';
     //nom de la clé primaire si différente de id
     protected $primaryKey='INS_NUM';
-    //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
     
-    //liste des champs modifiables
     protected $fillable=[
         'INS_DATE',
         'INS_ETAT',

@@ -11,10 +11,8 @@ class Competition extends Model
     protected $table='COMPETITION';
     //nom de la clé primaire si différente de id
     protected $primaryKey='COM_ID';
-    //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
     
-    //liste des champs modifiables
     protected $fillable=[
         'COM_NOM',
         'COM_DATE',

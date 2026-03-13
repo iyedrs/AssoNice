@@ -36,14 +36,6 @@
                     @endif
 
                     <div class="mb-3">
-                        <label for="CLU_ID" class="form-label">ID du club</label>
-                        @if(isset($club))
-                            <input type="text" class="form-control" id="CLU_ID" value="{{ $club->CLU_ID }}" disabled>
-                        @else
-                            <input type="text" class="form-control" id="CLU_ID" name="CLU_ID" value="{{ old('CLU_ID') }}" required>
-                        @endif
-                    </div>
-                    <div class="mb-3">
                         <label for="CLU_NOM" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="CLU_NOM" name="CLU_NOM" value="{{ old('CLU_NOM', $club->CLU_NOM ?? '') }}" required>
                     </div>
@@ -68,15 +60,18 @@
                         <input type="text" class="form-control" id="CLU_TELFIXE" name="CLU_TELFIXE" value="{{ old('CLU_TELFIXE', $club->CLU_TELFIXE ?? '') }}">
                     </div>
                     <div class="mb-3">
-                        <label for="DIS_ID" class="form-label">Discipline</label>
-                        <select class="form-select" id="DIS_ID" name="DIS_ID">
-                            <option value="">-- Choisir --</option>
+                        <label class="form-label">Discipline(s)</label>
+                        <div class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
                             @foreach($disciplines as $discipline)
-                                <option value="{{ $discipline->DIS_ID }}" {{ old('DIS_ID', $club->DIS_ID ?? '') == $discipline->DIS_ID ? 'selected' : '' }}>
-                                    {{ $discipline->DIS_NOM }}
-                                </option>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="disciplines[]" value="{{ $discipline->DIS_ID }}" id="dis_{{ $discipline->DIS_ID }}"
+                                        @if(isset($club) && $club->disciplines->contains('DIS_ID', $discipline->DIS_ID)) checked @endif
+                                        @if(is_array(old('disciplines')) && in_array($discipline->DIS_ID, old('disciplines'))) checked @endif
+                                    >
+                                    <label class="form-check-label" for="dis_{{ $discipline->DIS_ID }}">{{ $discipline->DIS_NOM }}</label>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-check-lg"></i> {{ isset($club) ? 'Modifier' : 'Créer' }}
