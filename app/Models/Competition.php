@@ -13,14 +13,9 @@ class Competition extends Model
     protected $primaryKey='COM_ID';
     //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
-    //si la clé n'est pas en auto incrément
-    public $incrementing = false;
-    //si la clé n'est pas de type integer
-    protected $keyType= 'string';
     
     //liste des champs modifiables
     protected $fillable=[
-        'COM_ID',
         'COM_NOM',
         'COM_DATE',
         'CLU_ID',

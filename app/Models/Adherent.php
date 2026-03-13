@@ -12,16 +12,11 @@ class Adherent extends Model
     protected $primaryKey='ADH_ID';
     //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
-    //si la clé n'est pas en auto incrément
-    public $incrementing = false;
-    //si la clé n'est pas de type integer
-    protected $keyType= 'string';
     
     
 
     //liste des champs modifiables
     protected $fillable=[
-        'ADH_ID',
         'CLU_ID',
         'DIS_ID',
         'ADH_NOM',

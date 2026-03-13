@@ -13,16 +13,11 @@ class Club extends Model
     protected $primaryKey='CLU_ID';
     //pour ne pas utiliser les champs date création et modification
     public $timestamps = false;
-    //si la clé n'est pas en auto incrément
-    public $incrementing = false;
-    //si la clé n'est pas de type integer
-    protected $keyType= 'string';
     
     
 
     //liste des champs modifiables
     protected $fillable=[
-        'CLU_ID',
         'CLU_NOM',
         'CLU_ADRESSEVILLE',
         'CLU_ADRESSERUE',
