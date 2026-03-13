@@ -8,5 +8,6 @@
     <h1>Nice Asso Sport</h1>
     <p>Bienvenue sur la plateforme de gestion des clubs</p>
     <a href="/clubs" class="btn btn-primary">Voir les Clubs</a>
+    <a href="/disciplines" class="btn btn-primary">Voir les Disciplines</a>
 </body>
 </html>
