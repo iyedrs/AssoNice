@@ -64,6 +64,9 @@ class DisciplineController extends Controller
         return redirect('/disciplines')->with('success', 'Discipline modifiée !');
     }
 
+ 
+
+
     #[Delete('/{id}')]
     public function destroy($id)
     {
