@@ -15,7 +15,7 @@ class ClubController extends Controller
     #[Get('/')]
     public function index()
     {
-        $clubs = Club::all();
+        $clubs = Club::with('disciplines')->get();
         return view('club.list', compact('clubs'));
     }
 
@@ -89,8 +89,7 @@ class ClubController extends Controller
     #[Get('/{id}/delete')]
     public function destroy($id)
     {
-        $club = Club::findOrFail($id);
-        $club->delete();
+        $club = Club::findOrFail($id);        $club->disciplines()->detach();        $club->delete();
 
         return redirect('/clubs')->with('success', 'Club supprimé avec succès.');
     }

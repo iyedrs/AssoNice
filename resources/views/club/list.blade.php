@@ -45,11 +45,7 @@
                                     <td>{{ $club->disciplines->pluck('DIS_NOM')->join(', ') ?: '-' }}</td>
                                     <td class="text-center text-nowrap">
                                         <a href="/clubs/{{ $club->CLU_ID }}/edit" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        <form action="/clubs/{{ $club->CLU_ID }}" method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce club ?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Supprimer</button>
-                                        </form>
+                                        <a href="/clubs/{{ $club->CLU_ID }}/delete" class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous vraiment supprimer ce club ?')"><i class="bi bi-trash"></i> Supprimer</a>
                                     </td>
                                 </tr>
                             @endforeach
