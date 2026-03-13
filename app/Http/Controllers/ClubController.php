@@ -7,24 +7,26 @@ use App\Models\Club;
 use App\Models\Discipline;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
+use Spatie\RouteAttributes\Attributes\Prefix;
 
+#[Prefix('/clubs')]
 class ClubController extends Controller
 {
-    #[Get('/clubs')]
+    #[Get('/')]
     public function index()
     {
         $clubs = Club::all();
         return view('club.list', compact('clubs'));
     }
 
-    #[Get('/clubs/create')]
+    #[Get('/create')]
     public function create()
     {
         $disciplines = Discipline::all();
         return view('club.form', compact('disciplines'));
     }
 
-    #[Post('/clubs')]
+    #[Post('/')]
     public function store(Request $request)
     {
         $request->validate([
@@ -46,7 +48,7 @@ class ClubController extends Controller
         return redirect('/clubs')->with('success', 'Club créé avec succès.');
     }
 
-    #[Get('/clubs/{id}/edit')]
+    #[Get('/{id}/edit')]
     public function edit($id)
     {
         $club = Club::findOrFail($id);
@@ -54,7 +56,7 @@ class ClubController extends Controller
         return view('club.form', compact('club', 'disciplines'));
     }
 
-    #[Post('/clubs/{id}/update')]
+    #[Post('/{id}/update')]
     public function update(Request $request, $id)
     {
         $club = Club::findOrFail($id);
@@ -77,7 +79,7 @@ class ClubController extends Controller
         return redirect('/clubs')->with('success', 'Club modifié avec succès.');
     }
 
-    #[Get('/clubs/{id}/delete')]
+    #[Get('/{id}/delete')]
     public function destroy($id)
     {
         $club = Club::findOrFail($id);

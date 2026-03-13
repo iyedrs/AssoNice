@@ -9,11 +9,13 @@ use App\Models\Discipline;
 use Illuminate\Http\Request;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;
+use Spatie\RouteAttributes\Attributes\Prefix;
 
+#[Prefix('/competitions')]
 class CompetitionController extends Controller
 {
     // Afficher la liste de toutes les compétitions
-    #[Get('/competitions', name: 'competitions.index')]
+    #[Get('/', name: 'competitions.index')]
     public function index()
     {
         $competitions = Competition::all();
@@ -21,7 +23,7 @@ class CompetitionController extends Controller
     }
 
     // Afficher une compétition en particulier
-    #[Get('/competitions/{id}', name: 'competitions.show')]
+    #[Get('/{id}', name: 'competitions.show')]
     public function show($id)
     {
         $competition = Competition::find($id);
@@ -29,7 +31,7 @@ class CompetitionController extends Controller
     }
 
     // Afficher le formulaire de création
-    #[Get('/competitions/create', name: 'competitions.create')]
+    #[Get('/create', name: 'competitions.create')]
     public function create()
     {
         $clubs = Club::all();
@@ -38,7 +40,7 @@ class CompetitionController extends Controller
     }
 
     // Sauvegarder une nouvelle compétition
-    #[Post('/competitions', name: 'competitions.store')]
+    #[Post('/', name: 'competitions.store')]
     public function store(Request $request)
     {
         Competition::create([
@@ -53,7 +55,7 @@ class CompetitionController extends Controller
     }
 
     // Afficher le formulaire de modification
-    #[Get('/competitions/{id}/edit', name: 'competitions.edit')]
+    #[Get('/{id}/edit', name: 'competitions.edit')]
     public function edit($id)
     {
         $competition = Competition::find($id);
@@ -63,7 +65,7 @@ class CompetitionController extends Controller
     }
 
     // Mettre à jour une compétition
-    #[Post('/competitions/{id}/update', name: 'competitions.update')]
+    #[Post('/{id}/update', name: 'competitions.update')]
     public function update(Request $request, $id)
     {
         $competition = Competition::find($id);
@@ -78,7 +80,7 @@ class CompetitionController extends Controller
     }
 
     // Supprimer une compétition
-    #[Get('/competitions/{id}/delete', name: 'competitions.destroy')]
+    #[Get('/{id}/delete', name: 'competitions.destroy')]
     public function destroy($id)
     {
         Competition::destroy($id);
