@@ -13,20 +13,20 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 #[Prefix('/disciplines')]
 class DisciplineController extends Controller
 {
-    #[Get('/')]
+    #[Get('/', middleware: 'auth.adherent:0')]
     public function index()
     {
         $disciplines = Discipline::all();
         return view('disciplines.list', compact('disciplines'));
     }
 
-    #[Get('/create')]
+    #[Get('/create', middleware: 'auth.adherent:1')]
     public function create()
     {
         return view('disciplines.form');
     }
 
-    #[Post('/')]
+    #[Post('/', middleware: 'auth.adherent:1')]
     public function store(Request $request)
     {
         $request->validate([
@@ -42,14 +42,14 @@ class DisciplineController extends Controller
         return redirect('/disciplines')->with('success', 'Discipline ajoutée !');
     }
 
-    #[Get('/{id}/edit')]
+    #[Get('/{id}/edit', middleware: 'auth.adherent:1')]
     public function edit($id)
     {
         $discipline = Discipline::findOrFail($id);
         return view('disciplines.form', compact('discipline'));
     }
 
-    #[Put('/{id}')]
+    #[Put('/{id}', middleware: 'auth.adherent:1')]
     public function update(Request $request, $id)
     {
         $discipline = Discipline::findOrFail($id);
@@ -64,7 +64,7 @@ class DisciplineController extends Controller
         return redirect('/disciplines')->with('success', 'Discipline modifiée !');
     }
 
-    #[Delete('/{id}')]
+    #[Delete('/{id}', middleware: 'auth.adherent:2')]
     public function destroy($id)
     {
         $discipline = Discipline::findOrFail($id);

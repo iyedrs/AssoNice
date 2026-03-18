@@ -66,6 +66,7 @@ class AdherentController extends Controller
         $adherent = Adherent::where('ADH_EMAIL', $request->ADH_EMAIL)->first();
 
         if ($adherent && Hash::check($request->ADH_HASH_PWD, $adherent->ADH_HASH_PWD)) {
+            $request->session()->regenerate();
             session(['adherent' => $adherent]);
             return redirect('/')->with('success', 'Connexion réussie !');
         }
@@ -74,9 +75,45 @@ class AdherentController extends Controller
     }
 
     #[Get('/deconnexion')]
-    public function deconnexion()
+    public function deconnexion(Request $request)
     {
-        session()->forget('adherent');
-        return redirect('/connexion');
+        $request->session()->forget('adherent');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/connexion')->with('success', 'Déconnexion réussie.');
+    }
+
+    #[Get('/admin/adherents')]
+    public function listeAdherents(Request $request)
+    {
+        $adherent = session('adherent');
+
+        if (!$adherent || $adherent->ADH_ROLE != 2) {
+            return redirect('/')->withErrors(['acces' => 'Accès refusé.']);
+        }
+
+        $adherents = Adherent::all();
+        return view('adherents.liste', compact('adherents'));
+    }
+
+    #[Post('/admin/adherents/role')]
+    public function updateRole(Request $request)
+    {
+        $adherent = session('adherent');
+
+        if (!$adherent || $adherent->ADH_ROLE != 2) {
+            return redirect('/')->withErrors(['acces' => 'Accès refusé.']);
+        }
+
+        $request->validate([
+            'ADH_ID' => 'required|integer|exists:ADHERENT,ADH_ID',
+            'ADH_ROLE' => 'required|integer|min:0|max:2',
+        ]);
+
+        $target = Adherent::find($request->ADH_ID);
+        $target->ADH_ROLE = $request->ADH_ROLE;
+        $target->save();
+
+        return redirect('/admin/adherents')->with('success', 'Rôle mis à jour avec succès.');
     }
 }

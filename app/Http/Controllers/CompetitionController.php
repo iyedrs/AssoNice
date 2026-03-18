@@ -15,7 +15,7 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 class CompetitionController extends Controller
 {
     // Afficher la liste de toutes les compétitions
-    #[Get('/', name: 'competitions.list')]
+    #[Get('/', name: 'competitions.list', middleware: 'auth.adherent:0')]
     public function index()
     {
         $competitions = Competition::all();
@@ -23,7 +23,7 @@ class CompetitionController extends Controller
     }
 
     // Afficher une compétition en particulier
-    #[Get('/{id}', name: 'competitions.show')]
+    #[Get('/{id}', name: 'competitions.show', middleware: 'auth.adherent:0')]
     public function show($id)
     {
         $competition = Competition::find($id);
@@ -31,7 +31,7 @@ class CompetitionController extends Controller
     }
 
     // Afficher le formulaire de création
-    #[Get('/create', name: 'competitions.create')]
+    #[Get('/create', name: 'competitions.create', middleware: 'auth.adherent:1')]
     public function create()
     {
         $clubs = Club::all();
@@ -40,7 +40,7 @@ class CompetitionController extends Controller
     }
 
     // Sauvegarder une nouvelle compétition
-    #[Post('/', name: 'competitions.store')]
+    #[Post('/', name: 'competitions.store', middleware: 'auth.adherent:1')]
     public function store(Request $request)
     {
         Competition::create([
@@ -54,7 +54,7 @@ class CompetitionController extends Controller
     }
 
     // Afficher le formulaire de modification
-    #[Get('/{id}/edit', name: 'competitions.edit')]
+    #[Get('/{id}/edit', name: 'competitions.edit', middleware: 'auth.adherent:1')]
     public function edit($id)
     {
         $competition = Competition::find($id);
@@ -64,7 +64,7 @@ class CompetitionController extends Controller
     }
 
     // Mettre à jour une compétition
-    #[Post('/{id}/update', name: 'competitions.update')]
+    #[Post('/{id}/update', name: 'competitions.update', middleware: 'auth.adherent:1')]
     public function update(Request $request, $id)
     {
         $competition = Competition::find($id);
@@ -79,7 +79,7 @@ class CompetitionController extends Controller
     }
 
     // Supprimer une compétition
-    #[Get('/{id}/delete', name: 'competitions.destroy')]
+    #[Get('/{id}/delete', name: 'competitions.destroy', middleware: 'auth.adherent:2')]
     public function destroy($id)
     {
         Competition::destroy($id);
