@@ -28,15 +28,13 @@
                         </ul>
                     </div>
                 @endif
-
-                <form action="{{ isset($discipline) ? '/disciplines/'/disciplines' }}" method="POST">
-                    @csrf
+                
+                <form action="{{ isset($discipline) ? '/disciplines/' . $discipline->DIS_ID : '/disciplines' }}" method="POST">
                     @if(isset($discipline))
                         @method('PUT')
-                    @endif
-
-                   
-                    <div class="mb-3">
+                    @endif         
+                @csrf
+                <div class="mb-3">
                         <label for="DIS_NOM" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="DIS_NOM" name="DIS_NOM" value="{{ old('DIS_NOM', $discipline->DIS_NOM ?? '') }}" required>
                     </div>

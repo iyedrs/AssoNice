@@ -30,14 +30,13 @@ class DisciplineController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'DIS_ID' => 'required|string|max:50|unique:DISCIPLINE,DIS_ID',
             'DIS_NOM' => 'required|string|max:100',
         ]);
 
-        $discipline = new Discipline();
-        $discipline->DIS_ID = $request->DIS_ID;
-        $discipline->DIS_NOM = $request->DIS_NOM;
-        $discipline->save();
+
+        Discipline::create([
+            'DIS_NOM' => $request->DIS_NOM
+        ]);
 
         return redirect('/disciplines')->with('success', 'Discipline ajoutée !');
     }
@@ -58,9 +57,10 @@ class DisciplineController extends Controller
             'DIS_NOM' => 'required|string|max:100',
         ]);
 
-        $discipline->DIS_NOM = $request->DIS_NOM;
-        $discipline->save();
-
+        $discipline->update([
+            'DIS_NOM' => $request->DIS_NOM
+        ]);
+      
         return redirect('/disciplines')->with('success', 'Discipline modifiée !');
     }
 

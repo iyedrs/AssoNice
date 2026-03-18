@@ -9,6 +9,7 @@ class Discipline extends Model
     protected $primaryKey='DIS_ID';
     public $timestamps = false;
     
+    
     protected $fillable=[
         'DIS_NOM'
     ];
