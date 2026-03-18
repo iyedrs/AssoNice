@@ -29,11 +29,8 @@
                     </div>
                 @endif
 
-                <form action="{{ isset($club) ? '/clubs/' . $club->CLU_ID : '/clubs' }}" method="POST">
+                <form action="{{ isset($club) ? '/clubs/' . $club->CLU_ID . '/update' : '/clubs' }}" method="POST">
                     @csrf
-                    @if(isset($club))
-                        @method('PUT')
-                    @endif
 
                     <div class="mb-3">
                         <label for="CLU_NOM" class="form-label">Nom</label>
