@@ -21,7 +21,6 @@
                     <table class="table table-hover table-striped align-middle mb-0">
                         <thead class="">
                             <tr>
-                                <th>ID</th>
                                 <th>Nom</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -29,7 +28,6 @@
                         <tbody>
                             @foreach($disciplines as $discipline)
                                 <tr>
-                                    <td>{{ $discipline->DIS_ID }}</td>
                                     <td class="fw-semibold">{{ $discipline->DIS_NOM }}</td>
                                     <td class="text-center text-nowrap">
                                         <a href="/disciplines/{{ $discipline->DIS_ID }}/edit" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
