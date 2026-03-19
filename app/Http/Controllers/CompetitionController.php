@@ -22,21 +22,21 @@ class CompetitionController extends Controller
         return view('competitions.list', compact('competitions'));
     }
 
-    // Afficher une compétition en particulier
-    #[Get('/{id}', name: 'competitions.show', middleware: 'auth.adherent:0')]
-    public function show($id)
-    {
-        $competition = Competition::find($id);
-        return view('competitions.show', compact('competition'));
-    }
-
     // Afficher le formulaire de création
     #[Get('/create', name: 'competitions.create', middleware: 'auth.adherent:1')]
     public function create()
     {
         $clubs = Club::all();
         $disciplines = Discipline::all();
-        return view('competitions.create', compact('clubs', 'disciplines'));
+        return view('competitions.form', compact('clubs', 'disciplines'));
+    }
+
+    // Afficher une compétition en particulier
+    #[Get('/{id}', name: 'competitions.show', middleware: 'auth.adherent:0')]
+    public function show($id)
+    {
+        $competition = Competition::find($id);
+        return view('competitions.form', compact('competition'));
     }
 
     // Sauvegarder une nouvelle compétition
@@ -60,7 +60,7 @@ class CompetitionController extends Controller
         $competition = Competition::find($id);
         $clubs = Club::all();
         $disciplines = Discipline::all();
-        return view('competitions.edit', compact('competition', 'clubs', 'disciplines'));
+        return view('competitions.form', compact('competition', 'clubs', 'disciplines'));
     }
 
     // Mettre à jour une compétition
