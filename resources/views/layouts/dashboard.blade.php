@@ -399,9 +399,6 @@
                     <a href="/admin/adherents" class="nav-link {{ request()->is('admin/adherents*') ? 'active' : '' }}">
                         <i class="bi bi-people"></i> Adhérents
                     </a>
-                    <a href="/roles" class="nav-link {{ request()->is('roles*') ? 'active' : '' }}">
-                        <i class="bi bi-shield-lock"></i> Rôles
-                    </a>
                 @endif
             @endif
         </div>
