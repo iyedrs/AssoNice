@@ -18,7 +18,8 @@
                         <tr>
                             <th>Nom</th>
                             <th>Date</th>
-                            <th>Club</th>
+                            <th>Club local</th>
+                            <th>Club invité</th>
                             <th>Discipline</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -29,6 +30,7 @@
                                 <td class="fw-semibold">{{ $competition->COM_NOM }}</td>
                                 <td>{{ $competition->COM_DATE }}</td>
                                 <td>{{ $competition->club->CLU_NOM ?? '-' }}</td>
+                                <td>{{ $competition->invitedClub->CLU_NOM ?? '-' }}</td>
                                 <td>{{ $competition->discipline->DIS_NOM ?? '-' }}</td>
                                 <td class="text-center text-nowrap">
                                     @if(session('adherent') && session('adherent')->ADH_ROLE >= 1)
