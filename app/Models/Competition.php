@@ -16,12 +16,17 @@ class Competition extends Model
     protected $fillable=[
         'COM_NOM',
         'COM_DATE',
+        'CLU_ID_LOCAL',
         'CLU_ID',
         'DIS_ID'
         
     ];
 
     function club(){
+        return $this->belongsTo(Club::class,'CLU_ID_LOCAL','CLU_ID');
+    }
+
+    function invitedClub(){
         return $this->belongsTo(Club::class,'CLU_ID','CLU_ID');
     }
 
