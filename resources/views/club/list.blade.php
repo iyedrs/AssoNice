@@ -16,7 +16,6 @@
                 <table class="table dashboard-table align-middle mb-0">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Nom</th>
                             <th>Ville</th>
                             <th>Rue</th>
@@ -30,7 +29,6 @@
                     <tbody>
                         @foreach($clubs as $club)
                             <tr>
-                                <td>{{ $club->CLU_ID }}</td>
                                 <td class="fw-semibold">{{ $club->CLU_NOM }}</td>
                                 <td>{{ $club->CLU_ADRESSEVILLE }}</td>
                                 <td>{{ $club->CLU_ADRESSERUE }}</td>

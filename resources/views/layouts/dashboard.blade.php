@@ -399,6 +399,9 @@
                     <a href="/admin/adherents" class="nav-link {{ request()->is('admin/adherents*') ? 'active' : '' }}">
                         <i class="bi bi-people"></i> Adhérents
                     </a>
+                    <a href="/roles" class="nav-link {{ request()->is('roles*') ? 'active' : '' }}">
+                        <i class="bi bi-shield-lock"></i> Rôles
+                    </a>
                 @endif
             @endif
         </div>
@@ -412,10 +415,7 @@
                     <div>
                         <div class="user-name">{{ session('adherent')->ADH_PRENOM }} {{ session('adherent')->ADH_NOM }}</div>
                         <div class="user-role">
-                            @if(session('adherent')->ADH_ROLE == 0) Adhérent
-                            @elseif(session('adherent')->ADH_ROLE == 1) Entraîneur
-                            @elseif(session('adherent')->ADH_ROLE == 2) Administrateur
-                            @endif
+                            {{ \App\Models\Role::find(session('adherent')->ADH_ROLE)->ROL_LIBELLE ?? 'Adhérent' }}
                         </div>
                     </div>
                 </div>

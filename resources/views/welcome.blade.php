@@ -54,31 +54,15 @@
                 </div>
             @endif
         </div>
-
-        {{-- Welcome card --}}
-        <div class="dashboard-card">
-            <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                    <div class="stat-icon blue me-3" style="width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
-                        <i class="bi bi-hand-thumbs-up-fill"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-0">Bienvenue, {{ session('adherent')->ADH_PRENOM }} !</h5>
-                        <small class="text-muted">Plateforme de gestion des clubs sportifs</small>
-                    </div>
-                </div>
-                <p class="text-muted mb-0">Utilisez la barre de navigation à gauche pour accéder aux différentes sections : clubs, disciplines, compétitions et gestion des adhérents.</p>
-            </div>
-        </div>
     @else
         {{-- Not logged in --}}
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-4">
             <div class="col-lg-8">
                 <div class="dashboard-card text-center">
-                    <div class="card-body py-5">
+                    <div class="card-body py-4">
                         <i class="bi bi-trophy-fill text-primary" style="font-size: 3rem;"></i>
                         <h3 class="mt-3 mb-2">Bienvenue sur Nice Asso Sport</h3>
-                        <p class="text-muted mb-4">Plateforme de gestion des clubs sportifs. Veuillez vous connecter pour accéder aux fonctionnalités.</p>
+                        <p class="text-muted mb-3">Plateforme de gestion des clubs sportifs. Connectez-vous pour vous inscrire aux compétitions.</p>
                         <a href="/connexion" class="btn btn-primary btn-dashboard me-2">
                             <i class="bi bi-box-arrow-in-right me-1"></i> Connexion
                         </a>
@@ -90,4 +74,48 @@
             </div>
         </div>
     @endif
+
+    {{-- Liste des compétitions visible par tous --}}
+    <div class="dashboard-card">
+        <div class="card-header">
+            <i class="bi bi-trophy me-2"></i>Compétitions
+        </div>
+        <div class="card-body p-0">
+            @if($competitions->isEmpty())
+                <div class="text-center py-4 text-muted">
+                    <i class="bi bi-calendar-x" style="font-size: 2rem;"></i>
+                    <p class="mt-2 mb-0">Aucune compétition pour le moment.</p>
+                </div>
+            @else
+                <div class="table-responsive">
+                    <table class="table dashboard-table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Date</th>
+                                <th>Club</th>
+                                <th>Discipline</th>
+                                <th class="text-center">Détails</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($competitions as $competition)
+                                <tr>
+                                    <td class="fw-semibold">{{ $competition->COM_NOM }}</td>
+                                    <td>{{ $competition->COM_DATE }}</td>
+                                    <td>{{ $competition->club->CLU_NOM ?? '-' }}</td>
+                                    <td>{{ $competition->discipline->DIS_NOM ?? '-' }}</td>
+                                    <td class="text-center">
+                                        <a href="/public/competitions/{{ $competition->COM_ID }}" class="btn btn-outline-primary btn-action">
+                                            <i class="bi bi-eye"></i> Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+    </div>
 @endsection

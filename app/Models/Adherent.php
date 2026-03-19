@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Role;
 
 class Adherent extends Model
 {
@@ -36,6 +37,10 @@ class Adherent extends Model
 
     function inscription(){
         return $this->hasMany(Inscription::class,'ADH_ID','ADH_ID');
+    }
+
+    function role(){
+        return $this->belongsTo(Role::class,'ADH_ROLE','ROL_ID');
     }
 }
   

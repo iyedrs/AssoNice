@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Adherent;
 use App\Models\Club;
 use App\Models\Discipline;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\RouteAttributes\Attributes\Get;
@@ -80,31 +81,20 @@ class AdherentController extends Controller
         $request->session()->forget('adherent');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/connexion')->with('success', 'Déconnexion réussie.');
+        return redirect('/')->with('success', 'Déconnexion réussie.');
     }
 
-    #[Get('/admin/adherents')]
+    #[Get('/admin/adherents', middleware: 'auth.adherent:2')]
     public function listeAdherents(Request $request)
     {
-        $adherent = session('adherent');
-
-        if (!$adherent || $adherent->ADH_ROLE != 2) {
-            return redirect('/')->withErrors(['acces' => 'Accès refusé.']);
-        }
-
-        $adherents = Adherent::all();
-        return view('adherents.liste', compact('adherents'));
+        $adherents = Adherent::with('role')->get();
+        $roles = Role::all();
+        return view('adherents.liste', compact('adherents', 'roles'));
     }
 
-    #[Post('/admin/adherents/role')]
+    #[Post('/admin/adherents/role', middleware: 'auth.adherent:2')]
     public function updateRole(Request $request)
     {
-        $adherent = session('adherent');
-
-        if (!$adherent || $adherent->ADH_ROLE != 2) {
-            return redirect('/')->withErrors(['acces' => 'Accès refusé.']);
-        }
-
         $request->validate([
             'ADH_ID' => 'required|integer|exists:ADHERENT,ADH_ID',
             'ADH_ROLE' => 'required|integer|min:0|max:2',
@@ -115,5 +105,15 @@ class AdherentController extends Controller
         $target->save();
 
         return redirect('/admin/adherents')->with('success', 'Rôle mis à jour avec succès.');
+    }
+
+    #[Get('/admin/adherents/{id}/delete', middleware: 'auth.adherent:2')]
+    public function destroy($id)
+    {
+        $adherent = Adherent::findOrFail($id);
+        $adherent->inscription()->delete();
+        $adherent->delete();
+
+        return redirect('/admin/adherents')->with('success', 'Adhérent supprimé avec succès.');
     }
 }

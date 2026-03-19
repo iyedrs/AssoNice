@@ -16,7 +16,6 @@
                 <table class="table dashboard-table align-middle mb-0">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Nom</th>
                             <th>Date</th>
                             <th>Club</th>
@@ -27,12 +26,26 @@
                     <tbody>
                         @foreach($competitions as $competition)
                             <tr>
-                                <td>{{ $competition->COM_ID }}</td>
                                 <td class="fw-semibold">{{ $competition->COM_NOM }}</td>
                                 <td>{{ $competition->COM_DATE }}</td>
                                 <td>{{ $competition->club->CLU_NOM ?? '-' }}</td>
                                 <td>{{ $competition->discipline->DIS_NOM ?? '-' }}</td>
                                 <td class="text-center text-nowrap">
+                                    @if(session('adherent') && session('adherent')->ADH_ROLE >= 1)
+                                        <a href="/competitions/{{ $competition->COM_ID }}/inscriptions" class="btn btn-outline-info btn-action" title="Voir inscriptions">
+                                            <i class="bi bi-person-check"></i>
+                                        </a>
+                                    @endif
+
+                                    @if(session('adherent') && session('adherent')->ADH_ROLE == 0)
+                                        <form action="/competitions/{{ $competition->COM_ID }}/inscrire" method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-success btn-action" title="S'inscrire">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+
                                     <a href="/competitions/{{ $competition->COM_ID }}/edit" class="btn btn-outline-primary btn-action">
                                         <i class="bi bi-pencil"></i>
                                     </a>
