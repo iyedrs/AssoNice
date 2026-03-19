@@ -51,13 +51,9 @@
                                     <a href="/competitions/{{ $competition->COM_ID }}/edit" class="btn btn-outline-primary btn-action">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="/competitions/{{ $competition->COM_ID }}" method="POST" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer cette compétition ?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger btn-action">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+                                    <a href="/competitions/{{ $competition->COM_ID }}/delete" class="btn btn-outline-danger btn-action" onclick="return confirm('Voulez-vous vraiment supprimer cette compétition ?')">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

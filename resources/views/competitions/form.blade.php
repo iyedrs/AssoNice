@@ -15,11 +15,8 @@
                     @endif
                 </div>
                 <div class="card-body">
-                    <form action="{{ isset($competition) ? '/competitions/' . $competition->COM_ID : '/competitions' }}" method="POST">
+                    <form action="{{ isset($competition) ? '/competitions/' . $competition->COM_ID . '/update' : '/competitions' }}" method="POST">
                         @csrf
-                        @if(isset($competition))
-                            @method('PUT')
-                        @endif
 
                         <div class="mb-3">
                             <label for="COM_NOM" class="form-label">Nom</label>
