@@ -21,14 +21,7 @@
                             @method('PUT')
                         @endif
 
-                        <div class="mb-3">
-                            <label for="DIS_ID" class="form-label">ID de la discipline</label>
-                            @if(isset($discipline))
-                                <input type="text" class="form-control" id="DIS_ID" value="{{ $discipline->DIS_ID }}" disabled>
-                            @else
-                                <input type="text" class="form-control" id="DIS_ID" name="DIS_ID" value="{{ old('DIS_ID') }}" required>
-                            @endif
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="DIS_NOM" class="form-label">Nom</label>
                             <input type="text" class="form-control" id="DIS_NOM" name="DIS_NOM" value="{{ old('DIS_NOM', $discipline->DIS_NOM ?? '') }}" required>
