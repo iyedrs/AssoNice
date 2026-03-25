@@ -5,42 +5,85 @@
 
 @section('content')
     @if(session('adherent'))
-        {{-- Stat cards --}}
+        {{-- Stat cards adaptées au rôle --}}
         <div class="row g-4 mb-4">
-            <div class="col-sm-6 col-xl-3">
-                <a href="/clubs" class="text-decoration-none">
-                    <div class="stat-card">
-                        <div class="stat-icon blue"><i class="bi bi-building"></i></div>
-                        <div class="stat-info">
-                            <p>Clubs</p>
-                            <h3>Gérer</h3>
+
+            {{-- Adhérent (role 0) --}}
+            @if(session('adherent')->ADH_ROLE == 0)
+                <div class="col-sm-6 col-xl-4">
+                    <a href="/competitions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
+                            <div class="stat-info">
+                                <p>Compétitions</p>
+                                <h3>S'inscrire</h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <a href="/disciplines" class="text-decoration-none">
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="bi bi-bookmark-star"></i></div>
-                        <div class="stat-info">
-                            <p>Disciplines</p>
-                            <h3>Gérer</h3>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-xl-4">
+                    <a href="/mes-inscriptions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="bi bi-journal-check"></i></div>
+                            <div class="stat-info">
+                                <p>Mes inscriptions</p>
+                                <h3>Consulter</h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <a href="/competitions" class="text-decoration-none">
-                    <div class="stat-card">
-                        <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
-                        <div class="stat-info">
-                            <p>Compétitions</p>
-                            <h3>Gérer</h3>
+                    </a>
+                </div>
+            @endif
+
+            {{-- Entraîneur (role 1) --}}
+            @if(session('adherent')->ADH_ROLE == 1)
+                <div class="col-sm-6 col-xl-4">
+                    <a href="/competitions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
+                            <div class="stat-info">
+                                <p>Compétitions</p>
+                                <h3>Gérer</h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            @endif
+
+            {{-- Administrateur (role 2) --}}
             @if(session('adherent')->ADH_ROLE == 2)
+                <div class="col-sm-6 col-xl-3">
+                    <a href="/clubs" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="bi bi-building"></i></div>
+                            <div class="stat-info">
+                                <p>Clubs</p>
+                                <h3>Gérer</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <a href="/disciplines" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="bi bi-bookmark-star"></i></div>
+                            <div class="stat-info">
+                                <p>Disciplines</p>
+                                <h3>Gérer</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <a href="/competitions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
+                            <div class="stat-info">
+                                <p>Compétitions</p>
+                                <h3>Gérer</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 <div class="col-sm-6 col-xl-3">
                     <a href="/admin/adherents" class="text-decoration-none">
                         <div class="stat-card">

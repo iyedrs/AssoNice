@@ -41,7 +41,17 @@
                         </div>
                     </div>
 
-                    @if(!session('adherent'))
+                    @if(session('adherent') && session('adherent')->ADH_ROLE == 0)
+                        <hr>
+                        <div class="text-center">
+                            <form action="/competitions/{{ $competition->COM_ID }}/inscrire" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-dashboard">
+                                    <i class="bi bi-plus-circle me-1"></i> S'inscrire à cette compétition
+                                </button>
+                            </form>
+                        </div>
+                    @elseif(!session('adherent'))
                         <hr>
                         <div class="text-center">
                             <p class="text-muted mb-3">Connectez-vous pour vous inscrire à cette compétition.</p>

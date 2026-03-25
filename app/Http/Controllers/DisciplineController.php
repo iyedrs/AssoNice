@@ -13,20 +13,20 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 #[Prefix('/disciplines')]
 class DisciplineController extends Controller
 {
-    #[Get('/', middleware: 'auth.adherent:0')]
+    #[Get('/', middleware: 'auth.adherent:2')]
     public function index()
     {
         $disciplines = Discipline::all();
         return view('disciplines.list', compact('disciplines'));
     }
 
-    #[Get('/create', middleware: 'auth.adherent:1')]
+    #[Get('/create', middleware: 'auth.adherent:2')]
     public function create()
     {
         return view('disciplines.form');
     }
 
-    #[Post('/', middleware: 'auth.adherent:1')]
+    #[Post('/', middleware: 'auth.adherent:2')]
     public function store(Request $request)
     {
         $request->validate([
@@ -40,14 +40,14 @@ class DisciplineController extends Controller
         return redirect('/disciplines')->with('success', 'Discipline ajoutée !');
     }
 
-    #[Get('/{id}/edit', middleware: 'auth.adherent:1')]
+    #[Get('/{id}/edit', middleware: 'auth.adherent:2')]
     public function edit($id)
     {
         $discipline = Discipline::findOrFail($id);
         return view('disciplines.form', compact('discipline'));
     }
 
-    #[Put('/{id}', middleware: 'auth.adherent:1')]
+    #[Put('/{id}', middleware: 'auth.adherent:2')]
     public function update(Request $request, $id)
     {
         $discipline = Discipline::findOrFail($id);

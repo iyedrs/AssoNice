@@ -69,4 +69,29 @@ class InscriptionController extends Controller
 
         return back()->with('success', 'Inscription refusée.');
     }
+
+    // Un adhérent consulte ses propres inscriptions
+    #[Get('/mes-inscriptions', middleware: 'auth.adherent:0')]
+    public function mesInscriptions()
+    {
+        $adherent = session('adherent');
+        $inscriptions = Inscription::with('competition.club', 'competition.discipline')
+            ->where('ADH_ID', $adherent->ADH_ID)
+            ->get();
+
+        return view('inscriptions.mes_inscriptions', compact('inscriptions'));
+    }
+
+    // Un entraîneur consulte les participants validés d'une compétition
+    #[Get('/competitions/{id}/participants', middleware: 'auth.adherent:1')]
+    public function participants($id)
+    {
+        $competition = Competition::findOrFail($id);
+        $participants = Inscription::with('adherent')
+            ->where('COM_ID', $id)
+            ->where('INS_ETAT', 1)
+            ->get();
+
+        return view('inscriptions.participants', compact('competition', 'participants'));
+    }
 }
