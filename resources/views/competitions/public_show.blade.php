@@ -26,8 +26,14 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <p class="mb-2"><strong><i class="bi bi-building me-1"></i> Club organisateur :</strong></p>
+                            <p class="mb-2"><strong><i class="bi bi-building me-1"></i> Club local :</strong></p>
                             <p class="text-muted">{{ $competition->club->CLU_NOM ?? '-' }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="mb-2"><strong><i class="bi bi-building me-1"></i> Club invité :</strong></p>
+                            <p class="text-muted">{{ $competition->invitedClub->CLU_NOM ?? '-' }}</p>
                         </div>
                         <div class="col-md-6">
                             <p class="mb-2"><strong><i class="bi bi-people me-1"></i> Inscrits :</strong></p>

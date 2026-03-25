@@ -21,7 +21,8 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Date</th>
-                                <th>Club</th>
+                                <th>Club local</th>
+                                <th>Club invité</th>
                                 <th>Discipline</th>
                                 <th class="text-center">Détails</th>
                             </tr>
@@ -32,6 +33,7 @@
                                     <td class="fw-semibold">{{ $competition->COM_NOM }}</td>
                                     <td>{{ $competition->COM_DATE }}</td>
                                     <td>{{ $competition->club->CLU_NOM ?? '-' }}</td>
+                                    <td>{{ $competition->invitedClub->CLU_NOM ?? '-' }}</td>
                                     <td>{{ $competition->discipline->DIS_NOM ?? '-' }}</td>
                                     <td class="text-center">
                                         <a href="/public/competitions/{{ $competition->COM_ID }}" class="btn btn-outline-primary btn-action">
