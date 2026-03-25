@@ -26,13 +26,7 @@
                 <i class="bi bi-grid-1x2-fill"></i> Tableau de bord
             </a>
 
-            {{-- Visiteur (non connecté) : voir compétitions publiques --}}
-            @if(!session('adherent'))
-                <div class="nav-section mt-3">Découvrir</div>
-                <a href="/public/competitions" class="nav-link {{ request()->is('public/competitions*') ? 'active' : '' }}">
-                    <i class="bi bi-trophy"></i> Compétitions
-                </a>
-            @endif
+
 
             {{-- Adhérent (role 0) : compétitions + mes inscriptions --}}
             @if(session('adherent') && session('adherent')->ADH_ROLE == 0)
