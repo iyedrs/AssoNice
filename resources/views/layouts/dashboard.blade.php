@@ -33,7 +33,7 @@
 
 
             {{-- Adhérent (role 0) : compétitions + mes inscriptions --}}
-            @if(session('adherent') && session('adherent')->ADH_ROLE == 0)
+            @if(session('adherent') && session('adherent')->maxRoleCache == 0)
                 <div class="nav-section mt-3">Espace adhérent</div>
                 <a href="/competitions" class="nav-link {{ request()->is('competitions') ? 'active' : '' }}">
                     <i class="bi bi-trophy"></i> Compétitions
@@ -44,7 +44,7 @@
             @endif
 
             {{-- Entraîneur (role 1) : compétitions + gestion inscriptions --}}
-            @if(session('adherent') && session('adherent')->ADH_ROLE == 1)
+            @if(session('adherent') && session('adherent')->maxRoleCache == 1)
                 <div class="nav-section mt-3">Espace entraîneur</div>
                 <a href="/competitions" class="nav-link {{ request()->is('competitions*') ? 'active' : '' }}">
                     <i class="bi bi-trophy"></i> Compétitions
@@ -52,7 +52,7 @@
             @endif
 
             {{-- Admin (role 2) : tout gérer --}}
-            @if(session('adherent') && session('adherent')->ADH_ROLE == 2)
+            @if(session('adherent') && session('adherent')->maxRoleCache == 2)
                 <div class="nav-section mt-3">Gestion</div>
                 <a href="/clubs" class="nav-link {{ request()->is('clubs*') ? 'active' : '' }}">
                     <i class="bi bi-building"></i> Clubs
@@ -79,7 +79,7 @@
                     <div>
                         <div class="user-name">{{ session('adherent')->ADH_PRENOM }} {{ session('adherent')->ADH_NOM }}</div>
                         <div class="user-role">
-                            {{ \App\Models\Role::find(session('adherent')->ADH_ROLE)->ROL_LIBELLE ?? 'Adhérent' }}
+                            {{ \App\Models\Role::find(session('adherent')->maxRoleCache)->ROL_LIBELLE ?? 'Adhérent' }}
                         </div>
                     </div>
                 </div>

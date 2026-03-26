@@ -18,6 +18,6 @@ class Role extends Model
 
     function adherents()
     {
-        return $this->hasMany(Adherent::class, 'ADH_ROLE', 'ROL_ID');
+        return $this->belongsToMany(Adherent::class, 'ADHERENT_ROLE', 'ROL_ID', 'ADH_ID');
     }
 }

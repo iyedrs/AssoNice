@@ -8,7 +8,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <span><i class="bi bi-trophy me-2"></i>Liste des compétitions</span>
             {{-- Seuls entraîneur (1) et admin (2) peuvent créer --}}
-            @if(session('adherent') && session('adherent')->ADH_ROLE >= 1)
+            @if(session('adherent') && session('adherent')->maxRoleCache >= 1)
                 <a href="/competitions/create" class="btn btn-primary btn-dashboard">
                     <i class="bi bi-plus-circle me-1"></i> Ajouter une compétition
                 </a>
@@ -37,7 +37,7 @@
                                 <td>{{ $competition->discipline->DIS_NOM ?? '-' }}</td>
                                 <td class="text-center text-nowrap">
                                     {{-- Adhérent (role 0) : bouton s'inscrire --}}
-                                    @if(session('adherent') && session('adherent')->ADH_ROLE == 0)
+                                    @if(session('adherent') && session('adherent')->maxRoleCache == 0)
                                         <form action="/competitions/{{ $competition->COM_ID }}/inscrire" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-outline-success btn-action" title="S'inscrire">
@@ -47,7 +47,7 @@
                                     @endif
 
                                     {{-- Entraîneur (role 1) : voir inscriptions, participants validés, modifier --}}
-                                    @if(session('adherent') && session('adherent')->ADH_ROLE >= 1)
+                                    @if(session('adherent') && session('adherent')->maxRoleCache >= 1)
                                         <a href="/competitions/{{ $competition->COM_ID }}/inscriptions" class="btn btn-outline-info btn-action" title="Voir inscriptions">
                                             <i class="bi bi-person-check"></i>
                                         </a>
@@ -60,7 +60,7 @@
                                     @endif
 
                                     {{-- Admin (role 2) : supprimer --}}
-                                    @if(session('adherent') && session('adherent')->ADH_ROLE == 2)
+                                    @if(session('adherent') && session('adherent')->maxRoleCache >= 2)
                                         <a href="/competitions/{{ $competition->COM_ID }}/delete" class="btn btn-outline-danger btn-action" onclick="return confirm('Voulez-vous vraiment supprimer cette compétition ?')">
                                             <i class="bi bi-trash"></i>
                                         </a>

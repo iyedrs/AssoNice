@@ -9,7 +9,7 @@
         <div class="row g-4 mb-4">
 
             {{-- Adhérent (role 0) --}}
-            @if(session('adherent')->ADH_ROLE == 0)
+            @if(session('adherent')->maxRoleCache == 0)
                 <div class="col-sm-6 col-xl-4">
                     <a href="/competitions" class="text-decoration-none">
                         <div class="stat-card">
@@ -35,7 +35,7 @@
             @endif
 
             {{-- Entraîneur (role 1) --}}
-            @if(session('adherent')->ADH_ROLE == 1)
+            @if(session('adherent')->maxRoleCache == 1)
                 <div class="col-sm-6 col-xl-4">
                     <a href="/competitions" class="text-decoration-none">
                         <div class="stat-card">
@@ -50,7 +50,7 @@
             @endif
 
             {{-- Administrateur (role 2) --}}
-            @if(session('adherent')->ADH_ROLE == 2)
+            @if(session('adherent')->maxRoleCache == 2)
                 <div class="col-sm-6 col-xl-3">
                     <a href="/clubs" class="text-decoration-none">
                         <div class="stat-card">

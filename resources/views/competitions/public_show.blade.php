@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    @if(session('adherent') && session('adherent')->ADH_ROLE == 0)
+                    @if(session('adherent') && session('adherent')->maxRoleCache == 0)
                         <hr>
                         <div class="text-center">
                             <form action="/competitions/{{ $competition->COM_ID }}/inscrire" method="POST">

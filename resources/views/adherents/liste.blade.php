@@ -28,25 +28,27 @@
                                 <td>{{ $adh->ADH_PRENOM }}</td>
                                 <td>{{ $adh->ADH_EMAIL }}</td>
                                 <td>
-                                    @if($adh->ADH_ROLE == 0)
-                                        <span class="badge badge-role badge-adherent">{{ $adh->role->ROL_LIBELLE ?? 'Adhérent' }}</span>
-                                    @elseif($adh->ADH_ROLE == 1)
-                                        <span class="badge badge-role badge-entraineur">{{ $adh->role->ROL_LIBELLE ?? 'Entraîneur' }}</span>
-                                    @elseif($adh->ADH_ROLE == 2)
-                                        <span class="badge badge-role badge-admin">{{ $adh->role->ROL_LIBELLE ?? 'Admin' }}</span>
-                                    @else
-                                        <span class="badge badge-role badge-adherent">{{ $adh->role->ROL_LIBELLE ?? 'Inconnu' }}</span>
-                                    @endif
+                                    @foreach($adh->roles as $r)
+                                        @if($r->ROL_ID == 0)
+                                            <span class="badge badge-role badge-adherent">{{ $r->ROL_LIBELLE }}</span>
+                                        @elseif($r->ROL_ID == 1)
+                                            <span class="badge badge-role badge-entraineur">{{ $r->ROL_LIBELLE }}</span>
+                                        @elseif($r->ROL_ID == 2)
+                                            <span class="badge badge-role badge-admin">{{ $r->ROL_LIBELLE }}</span>
+                                        @endif
+                                    @endforeach
                                 </td>
                                 <td>
                                     <form action="/admin/adherents/role" method="POST" class="d-flex gap-2 align-items-center">
                                         @csrf
                                         <input type="hidden" name="ADH_ID" value="{{ $adh->ADH_ID }}">
-                                        <select name="ADH_ROLE" class="form-select form-select-sm" style="width: auto;">
-                                            @foreach($roles as $role)
-                                                <option value="{{ $role->ROL_ID }}" {{ $adh->ADH_ROLE == $role->ROL_ID ? 'selected' : '' }}>{{ $role->ROL_LIBELLE }}</option>
-                                            @endforeach
-                                        </select>
+                                        @foreach($roles as $role)
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->ROL_ID }}" id="role_{{ $adh->ADH_ID }}_{{ $role->ROL_ID }}"
+                                                    {{ $adh->roles->contains('ROL_ID', $role->ROL_ID) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="role_{{ $adh->ADH_ID }}_{{ $role->ROL_ID }}">{{ $role->ROL_LIBELLE }}</label>
+                                            </div>
+                                        @endforeach
                                         <button type="submit" class="btn btn-sm btn-primary btn-action">
                                             <i class="bi bi-check-lg"></i>
                                         </button>

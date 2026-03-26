@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Adherent;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,8 @@ class AuthAdherent
             return redirect('/connexion')->with('error', 'Vous devez être connecté pour accéder à cette page.');
         }
 
-        if ((int) session('adherent')->ADH_ROLE < (int) $minRole) {
+        $adherent = Adherent::with('roles')->find(session('adherent')->ADH_ID);
+        if (!$adherent || $adherent->maxRole() < (int) $minRole) {
             abort(403, 'Vous n\'avez pas les droits pour accéder à cette page.');
         }
 

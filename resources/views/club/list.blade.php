@@ -7,7 +7,7 @@
     <div class="dashboard-card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <span><i class="bi bi-building me-2"></i>Liste des clubs</span>
-            @if(session('adherent') && session('adherent')->ADH_ROLE == 2)
+            @if(session('adherent') && session('adherent')->maxRoleCache >= 2)
                 <a href="/clubs/create" class="btn btn-primary btn-dashboard">
                     <i class="bi bi-plus-circle me-1"></i> Ajouter un club
                 </a>
@@ -39,7 +39,7 @@
                                 <td>{{ $club->CLU_TELFIXE }}</td>
                                 <td>{{ $club->disciplines->pluck('DIS_NOM')->join(', ') ?: '-' }}</td>
                                 <td class="text-center text-nowrap">
-                                    @if(session('adherent') && session('adherent')->ADH_ROLE == 2)
+                                    @if(session('adherent') && session('adherent')->maxRoleCache >= 2)
                                         <a href="/clubs/{{ $club->CLU_ID }}/edit" class="btn btn-outline-primary btn-action">
                                             <i class="bi bi-pencil"></i>
                                         </a>

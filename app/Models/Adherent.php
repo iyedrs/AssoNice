@@ -22,9 +22,6 @@ class Adherent extends Model
         'ADH_ADRESSE',
         'ADH_HASH_PWD',
         'ADH_EMAIL',
-        'ADH_ROLE',
-        'CLU_ID',
-        'DIS_ID'
     ];
 
     function club(){
@@ -39,8 +36,18 @@ class Adherent extends Model
         return $this->hasMany(Inscription::class,'ADH_ID','ADH_ID');
     }
 
-    function role(){
-        return $this->belongsTo(Role::class,'ADH_ROLE','ROL_ID');
+    function roles(){
+        return $this->belongsToMany(Role::class, 'ADHERENT_ROLE', 'ADH_ID', 'ROL_ID');
+    }
+
+    function maxRole(): int
+    {
+        return $this->roles->max('ROL_ID') ?? 0;
+    }
+
+    function hasRole(int $roleId): bool
+    {
+        return $this->roles->contains('ROL_ID', $roleId);
     }
 }
   

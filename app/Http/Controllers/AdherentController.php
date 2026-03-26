@@ -35,17 +35,18 @@ class AdherentController extends Controller
             'DIS_ID' => 'required|integer',
         ]);
 
-        Adherent::create([
+        $adherent = Adherent::create([
             'ADH_NOM' => $request->ADH_NOM,
             'ADH_PRENOM' => $request->ADH_PRENOM,
             'ADH_DDN' => $request->ADH_DDN,
             'ADH_ADRESSE' => $request->ADH_ADRESSE,
             'ADH_HASH_PWD' => Hash::make($request->ADH_HASH_PWD),
             'ADH_EMAIL' => $request->ADH_EMAIL,
-            'ADH_ROLE' => 0,
             'CLU_ID' => $request->CLU_ID,
             'DIS_ID' => $request->DIS_ID,
         ]);
+
+        $adherent->roles()->attach(0);
 
         return redirect('/connexion')->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
     }
@@ -64,10 +65,11 @@ class AdherentController extends Controller
             'ADH_HASH_PWD' => 'required|string',
         ]);
 
-        $adherent = Adherent::where('ADH_EMAIL', $request->ADH_EMAIL)->first();
+        $adherent = Adherent::with('roles')->where('ADH_EMAIL', $request->ADH_EMAIL)->first();
 
         if ($adherent && Hash::check($request->ADH_HASH_PWD, $adherent->ADH_HASH_PWD)) {
             $request->session()->regenerate();
+            $adherent->maxRoleCache = $adherent->maxRole();
             session(['adherent' => $adherent]);
             return redirect('/')->with('success', 'Connexion réussie !');
         }
@@ -87,7 +89,7 @@ class AdherentController extends Controller
     #[Get('/admin/adherents', middleware: 'auth.adherent:2')]
     public function listeAdherents(Request $request)
     {
-        $adherents = Adherent::with('role')->get();
+        $adherents = Adherent::with('roles')->get();
         $roles = Role::all();
         return view('adherents.liste', compact('adherents', 'roles'));
     }
@@ -97,14 +99,14 @@ class AdherentController extends Controller
     {
         $request->validate([
             'ADH_ID' => 'required|integer|exists:ADHERENT,ADH_ID',
-            'ADH_ROLE' => 'required|integer|min:0|max:2',
+            'roles' => 'required|array',
+            'roles.*' => 'integer|exists:ROLE,ROL_ID',
         ]);
 
         $target = Adherent::find($request->ADH_ID);
-        $target->ADH_ROLE = $request->ADH_ROLE;
-        $target->save();
+        $target->roles()->sync($request->roles);
 
-        return redirect('/admin/adherents')->with('success', 'Rôle mis à jour avec succès.');
+        return redirect('/admin/adherents')->with('success', 'Rôles mis à jour avec succès.');
     }
 
     #[Get('/admin/adherents/{id}/delete', middleware: 'auth.adherent:2')]
