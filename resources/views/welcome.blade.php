@@ -5,42 +5,85 @@
 
 @section('content')
     @if(session('adherent'))
-        {{-- Stat cards --}}
+        {{-- Stat cards adaptées au rôle --}}
         <div class="row g-4 mb-4">
-            <div class="col-sm-6 col-xl-3">
-                <a href="/clubs" class="text-decoration-none">
-                    <div class="stat-card">
-                        <div class="stat-icon blue"><i class="bi bi-building"></i></div>
-                        <div class="stat-info">
-                            <p>Clubs</p>
-                            <h3>Gérer</h3>
+
+            {{-- Adhérent (role 0) --}}
+            @if(session('adherent')->ADH_ROLE == 0)
+                <div class="col-sm-6 col-xl-4">
+                    <a href="/competitions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
+                            <div class="stat-info">
+                                <p>Compétitions</p>
+                                <h3>S'inscrire</h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <a href="/disciplines" class="text-decoration-none">
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="bi bi-bookmark-star"></i></div>
-                        <div class="stat-info">
-                            <p>Disciplines</p>
-                            <h3>Gérer</h3>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-xl-4">
+                    <a href="/mes-inscriptions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="bi bi-journal-check"></i></div>
+                            <div class="stat-info">
+                                <p>Mes inscriptions</p>
+                                <h3>Consulter</h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <a href="/competitions" class="text-decoration-none">
-                    <div class="stat-card">
-                        <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
-                        <div class="stat-info">
-                            <p>Compétitions</p>
-                            <h3>Gérer</h3>
+                    </a>
+                </div>
+            @endif
+
+            {{-- Entraîneur (role 1) --}}
+            @if(session('adherent')->ADH_ROLE == 1)
+                <div class="col-sm-6 col-xl-4">
+                    <a href="/competitions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
+                            <div class="stat-info">
+                                <p>Compétitions</p>
+                                <h3>Gérer</h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            @endif
+
+            {{-- Administrateur (role 2) --}}
             @if(session('adherent')->ADH_ROLE == 2)
+                <div class="col-sm-6 col-xl-3">
+                    <a href="/clubs" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="bi bi-building"></i></div>
+                            <div class="stat-info">
+                                <p>Clubs</p>
+                                <h3>Gérer</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <a href="/disciplines" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="bi bi-bookmark-star"></i></div>
+                            <div class="stat-info">
+                                <p>Disciplines</p>
+                                <h3>Gérer</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <a href="/competitions" class="text-decoration-none">
+                        <div class="stat-card">
+                            <div class="stat-icon amber"><i class="bi bi-trophy"></i></div>
+                            <div class="stat-info">
+                                <p>Compétitions</p>
+                                <h3>Gérer</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 <div class="col-sm-6 col-xl-3">
                     <a href="/admin/adherents" class="text-decoration-none">
                         <div class="stat-card">
@@ -62,13 +105,7 @@
                     <div class="card-body py-4">
                         <i class="bi bi-trophy-fill text-primary" style="font-size: 3rem;"></i>
                         <h3 class="mt-3 mb-2">Bienvenue sur Nice Asso Sport</h3>
-                        <p class="text-muted mb-3">Plateforme de gestion des clubs sportifs. Connectez-vous pour vous inscrire aux compétitions.</p>
-                        <a href="/connexion" class="btn btn-primary btn-dashboard me-2">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Connexion
-                        </a>
-                        <a href="/inscription" class="btn btn-outline-primary btn-dashboard">
-                            <i class="bi bi-person-plus me-1"></i> Inscription
-                        </a>
+                        <p class="text-muted mb-0">Plateforme de gestion des clubs sportifs et des compétitions.</p>
                     </div>
                 </div>
             </div>
@@ -93,9 +130,9 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Date</th>
-                                <th>Club</th>
+                                <th>Club local</th>
+                                <th>Club invité</th>
                                 <th>Discipline</th>
-                                <th class="text-center">Détails</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,12 +141,9 @@
                                     <td class="fw-semibold">{{ $competition->COM_NOM }}</td>
                                     <td>{{ $competition->COM_DATE }}</td>
                                     <td>{{ $competition->club->CLU_NOM ?? '-' }}</td>
+                                    <td>{{ $competition->invitedClub->CLU_NOM ?? '-' }}</td>
                                     <td>{{ $competition->discipline->DIS_NOM ?? '-' }}</td>
-                                    <td class="text-center">
-                                        <a href="/public/competitions/{{ $competition->COM_ID }}" class="btn btn-outline-primary btn-action">
-                                            <i class="bi bi-eye"></i> Voir
-                                        </a>
-                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

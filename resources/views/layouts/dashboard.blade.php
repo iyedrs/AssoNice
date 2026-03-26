@@ -30,7 +30,29 @@
                 <i class="bi bi-grid-1x2-fill"></i> Tableau de bord
             </a>
 
-            @if(session('adherent'))
+
+
+            {{-- Adhérent (role 0) : compétitions + mes inscriptions --}}
+            @if(session('adherent') && session('adherent')->ADH_ROLE == 0)
+                <div class="nav-section mt-3">Espace adhérent</div>
+                <a href="/competitions" class="nav-link {{ request()->is('competitions') ? 'active' : '' }}">
+                    <i class="bi bi-trophy"></i> Compétitions
+                </a>
+                <a href="/mes-inscriptions" class="nav-link {{ request()->is('mes-inscriptions') ? 'active' : '' }}">
+                    <i class="bi bi-journal-check"></i> Mes inscriptions
+                </a>
+            @endif
+
+            {{-- Entraîneur (role 1) : compétitions + gestion inscriptions --}}
+            @if(session('adherent') && session('adherent')->ADH_ROLE == 1)
+                <div class="nav-section mt-3">Espace entraîneur</div>
+                <a href="/competitions" class="nav-link {{ request()->is('competitions*') ? 'active' : '' }}">
+                    <i class="bi bi-trophy"></i> Compétitions
+                </a>
+            @endif
+
+            {{-- Admin (role 2) : tout gérer --}}
+            @if(session('adherent') && session('adherent')->ADH_ROLE == 2)
                 <div class="nav-section mt-3">Gestion</div>
                 <a href="/clubs" class="nav-link {{ request()->is('clubs*') ? 'active' : '' }}">
                     <i class="bi bi-building"></i> Clubs
@@ -41,13 +63,10 @@
                 <a href="/competitions" class="nav-link {{ request()->is('competitions*') ? 'active' : '' }}">
                     <i class="bi bi-trophy"></i> Compétitions
                 </a>
-
-                @if(session('adherent')->ADH_ROLE == 2)
-                    <div class="nav-section mt-3">Administration</div>
-                    <a href="/admin/adherents" class="nav-link {{ request()->is('admin/adherents*') ? 'active' : '' }}">
-                        <i class="bi bi-people"></i> Adhérents
-                    </a>
-                @endif
+                <div class="nav-section mt-3">Administration</div>
+                <a href="/admin/adherents" class="nav-link {{ request()->is('admin/adherents*') ? 'active' : '' }}">
+                    <i class="bi bi-people"></i> Adhérents
+                </a>
             @endif
         </div>
 

@@ -12,21 +12,21 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 #[Prefix('/clubs')]
 class ClubController extends Controller
 {
-    #[Get('/', middleware: 'auth.adherent:0')]
+    #[Get('/', middleware: 'auth.adherent:2')]
     public function index()
     {
         $clubs = Club::with('disciplines')->get();
         return view('club.list', compact('clubs'));
     }
 
-    #[Get('/create', middleware: 'auth.adherent:1')]
+    #[Get('/create', middleware: 'auth.adherent:2')]
     public function create()
     {
         $disciplines = Discipline::all();
         return view('club.form', compact('disciplines'));
     }
 
-    #[Post('/', middleware: 'auth.adherent:1')]
+    #[Post('/', middleware: 'auth.adherent:2')]
     public function store(Request $request)
     {
         $request->validate([
@@ -52,7 +52,7 @@ class ClubController extends Controller
         return redirect('/clubs')->with('success', 'Club créé avec succès.');
     }
 
-    #[Get('/{id}/edit', middleware: 'auth.adherent:1')]
+    #[Get('/{id}/edit', middleware: 'auth.adherent:2')]
     public function edit($id)
     {
         $club = Club::with('disciplines')->findOrFail($id);
@@ -60,7 +60,7 @@ class ClubController extends Controller
         return view('club.form', compact('club', 'disciplines'));
     }
 
-    #[Post('/{id}/update', middleware: 'auth.adherent:1')]
+    #[Post('/{id}/update', middleware: 'auth.adherent:2')]
     public function update(Request $request, $id)
     {
         $club = Club::findOrFail($id);

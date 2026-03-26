@@ -7,9 +7,14 @@
     <div class="dashboard-card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <span><i class="bi bi-trophy me-2"></i>{{ $competition->COM_NOM }}</span>
-            <a href="/" class="btn btn-outline-secondary btn-dashboard">
-                <i class="bi bi-arrow-left me-1"></i> Retour
-            </a>
+            <div>
+                <a href="/competitions/{{ $competition->COM_ID }}/participants" class="btn btn-outline-success btn-dashboard me-1">
+                    <i class="bi bi-people-fill me-1"></i> Participants validés
+                </a>
+                <a href="/competitions" class="btn btn-outline-secondary btn-dashboard">
+                    <i class="bi bi-arrow-left me-1"></i> Retour
+                </a>
+            </div>
         </div>
         <div class="card-body">
             <p class="mb-1"><strong>Date :</strong> {{ $competition->COM_DATE }}</p>

@@ -9,16 +9,6 @@ Route::get('/', function () {
     return view('welcome', compact('competitions'));
 });
 
-// Pages publiques pour les visiteurs (sans authentification)
-Route::get('/public/competitions', function () {
-    $competitions = Competition::with(['club', 'discipline'])->get();
-    return view('competitions.public_list', compact('competitions'));
-});
-
-Route::get('/public/competitions/{id}', function ($id) {
-    $competition = Competition::with(['club', 'discipline', 'inscription'])->findOrFail($id);
-    return view('competitions.public_show', compact('competition'));
-});
 
 // Toutes les autres routes sont gérées par les attributs Spatie
 // directement dans les controllers (ClubController, AdherentController,
